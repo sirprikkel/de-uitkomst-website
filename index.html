@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Uitkomst — Forelvisvijvers in Vortum-Mullem</title>
+  <meta name="description" content="Recreatieve visvijvers in het hart van de Maasheggen. Forelvissen, zalmforelvissen, catch & release op karper en meerval. Geschikt voor families, kinderen en ervaren vissers.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&family=Varela+Round&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0E7490',
+            secondary: '#065F46',
+            accent: '#F59E0B',
+            surface: '#F0FDFA',
+            deep: '#134E4A',
+            water: '#0284C7',
+            mist: '#ECFDF5',
+          },
+          fontFamily: {
+            heading: ['Varela Round', 'sans-serif'],
+            body: ['Nunito Sans', 'sans-serif'],
+          },
+          animation: {
+            'aurora': 'aurora 10s ease-in-out infinite',
+            'fade-up': 'fadeUp 0.6s ease-out forwards',
+          },
+          keyframes: {
+            aurora: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            },
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito Sans', sans-serif; color: #134E4A; background: #F0FDFA; }
+    h1, h2, h3, h4, h5 { font-family: 'Varela Round', sans-serif; }
+
+    .aurora-bg {
+      background: linear-gradient(-45deg, #0E7490, #065F46, #0284C7, #0E7490, #065F46);
+      background-size: 300% 300%;
+      animation: aurora 10s ease-in-out infinite;
+    }
+
+    .aurora-subtle {
+      background: linear-gradient(-45deg, #F0FDFA, #ECFDF5, #E0F2FE, #F0FDFA);
+      background-size: 200% 200%;
+      animation: aurora 12s ease-in-out infinite;
+    }
+
+    .gradient-border {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      padding: 2px;
+      background: linear-gradient(-45deg, #0E7490, #065F46, #0284C7, #F59E0B);
+      background-size: 300% 300%;
+      animation: aurora 8s ease-in-out infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    .hero-overlay {
+      background: linear-gradient(to bottom, rgba(14,116,144,0.5) 0%, rgba(6,95,70,0.7) 60%, rgba(19,78,74,0.9) 100%);
+    }
+
+    .card-glow:hover {
+      box-shadow: 0 0 30px rgba(14,116,144,0.2), 0 8px 32px rgba(6,95,70,0.15);
+      transform: translateY(-4px);
+    }
+
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 0.5rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .aurora-bg, .aurora-subtle, .gradient-border::before { animation: none !important; }
+    }
+
+    .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+    .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Hamburger */
+    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease-in-out; }
+    .mobile-menu.open { transform: translateX(0); }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <a href="index.html" class="font-heading text-2xl font-bold text-white drop-shadow-lg">🎣 De Uitkomst</a>
+    <!-- Desktop -->
+    <div class="hidden md:flex items-center gap-6">
+      <a href="index.html" class="text-white/90 hover:text-accent transition-colors duration-200 font-medium cursor-pointer">Home</a>
+      <a href="vijvers.html" class="text-white/90 hover:text-accent transition-colors duration-200 font-medium cursor-pointer">Vijvers</a>
+      <a href="prijzen.html" class="text-white/90 hover:text-accent transition-colors duration-200 font-medium cursor-pointer">Prijzen</a>
+      <a href="galerij.html" class="text-white/90 hover:text-accent transition-colors duration-200 font-medium cursor-pointer">Galerij</a>
+      <a href="contact.html" class="text-white/90 hover:text-accent transition-colors duration-200 font-medium cursor-pointer">Contact</a>
+      <a href="tel:0614429188" class="aurora-bg text-white px-5 py-2.5 rounded-full font-semibold hover:opacity-90 transition-opacity cursor-pointer min-h-[44px] flex items-center">Bel ons</a>
+    </div>
+    <!-- Mobile hamburger -->
+    <button id="menuBtn" class="md:hidden text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer" aria-label="Menu openen">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div id="mobileMenu" class="mobile-menu fixed inset-0 z-50 aurora-bg">
+  <div class="flex justify-end p-6">
+    <button id="closeMenu" class="text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer" aria-label="Menu sluiten">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center gap-8 mt-16">
+    <a href="index.html" class="text-white text-2xl font-heading cursor-pointer">Home</a>
+    <a href="vijvers.html" class="text-white text-2xl font-heading cursor-pointer">Vijvers</a>
+    <a href="prijzen.html" class="text-white text-2xl font-heading cursor-pointer">Prijzen</a>
+    <a href="galerij.html" class="text-white text-2xl font-heading cursor-pointer">Galerij</a>
+    <a href="contact.html" class="text-white text-2xl font-heading cursor-pointer">Contact</a>
+    <a href="tel:0614429188" class="mt-4 bg-accent text-deep px-8 py-3 rounded-full font-bold text-lg cursor-pointer min-h-[44px]">Bel ons</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <img src="images/hero-bg.jpg" alt="Visvijvers De Uitkomst vanuit de lucht" class="absolute inset-0 w-full h-full object-cover">
+  <div class="hero-overlay absolute inset-0"></div>
+  <div class="relative z-10 text-center px-4 max-w-4xl">
+    <h1 class="font-heading text-4xl md:text-6xl lg:text-7xl text-white font-bold mb-6 leading-tight drop-shadow-lg">Forelvissen in het hart van de Maasheggen</h1>
+    <p class="text-white/90 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-light">5 recreatieve visvijvers in Vortum-Mullem. Voor de hele familie, van beginnende visser tot doorgewinterde hengelsporter.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="prijzen.html" class="aurora-bg text-white px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity cursor-pointer min-h-[44px] inline-flex items-center justify-center">Bekijk prijzen</a>
+      <a href="contact.html" class="bg-white/15 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-white/25 transition-all cursor-pointer min-h-[44px] inline-flex items-center justify-center">Plan uw bezoek</a>
+    </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+    <svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="aurora-bg py-6">
+  <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-white">
+    <div class="scroll-reveal">
+      <div class="text-3xl md:text-4xl font-bold font-heading">5</div>
+      <div class="text-sm text-white/80 mt-1">Visvijvers</div>
+    </div>
+    <div class="scroll-reveal">
+      <div class="text-3xl md:text-4xl font-bold font-heading">4.5★</div>
+      <div class="text-sm text-white/80 mt-1">Google (102 reviews)</div>
+    </div>
+    <div class="scroll-reveal">
+      <div class="text-3xl md:text-4xl font-bold font-heading">€6,50</div>
+      <div class="text-sm text-white/80 mt-1">Vanaf per tijdsblok</div>
+    </div>
+    <div class="scroll-reveal">
+      <div class="text-3xl md:text-4xl font-bold font-heading">UNESCO</div>
+      <div class="text-sm text-white/80 mt-1">Maasheggen gebied</div>
+    </div>
+  </div>
+</section>
+
+<!-- Wat wij bieden -->
+<section class="py-20 aurora-subtle">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class="text-center mb-16 scroll-reveal">
+      <h2 class="font-heading text-3xl md:text-4xl text-deep font-bold mb-4">Wat wij bieden</h2>
+      <p class="text-deep/70 max-w-2xl mx-auto text-lg">5 recreatieve visvijvers voor zowel de beginnende als de ervaren visser. Of u alleen komt of met familie, vrienden, een kinderverjaardag of bedrijfsuitje — bij ons kan het allemaal.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <div class="gradient-border scroll-reveal">
+        <div class="bg-white rounded-2xl p-8 h-full card-glow transition-all duration-300 relative z-10">
+          <div class="w-14 h-14 aurora-bg rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+          </div>
+          <h3 class="font-heading text-xl text-deep font-bold mb-3">Forelvijvers</h3>
+          <p class="text-deep/70">3 forelvijvers waarvan een mixvijver. Vis op regenboogforel en grote zalmforel. Uw vangst meenemen om thuis van te smullen.</p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="gradient-border scroll-reveal">
+        <div class="bg-white rounded-2xl p-8 h-full card-glow transition-all duration-300 relative z-10">
+          <div class="w-14 h-14 aurora-bg rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          </div>
+          <h3 class="font-heading text-xl text-deep font-bold mb-3">Catch & Release</h3>
+          <p class="text-deep/70">Grote vijver met karper, steur en meerval. De echte hengelsportactie. Al vanaf €8,- per persoon, 2 blokken voor slechts €13,-.</p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="gradient-border scroll-reveal">
+        <div class="bg-white rounded-2xl p-8 h-full card-glow transition-all duration-300 relative z-10">
+          <div class="w-14 h-14 aurora-bg rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="font-heading text-xl text-deep font-bold mb-3">Kindervijver</h3>
+          <p class="text-deep/70">Catch & release vijver met honderden karpertjes. Kinderen kunnen naar hartelust vissen met vaste stok of werphengel. Vanaf €8,- per kind.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Over ons -->
+<section class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="scroll-reveal">
+        <img src="images/de-uitkomst-1.jpg" alt="Visvijvers De Uitkomst" class="rounded-2xl shadow-xl w-full h-96 object-cover" loading="lazy">
+      </div>
+      <div class="scroll-reveal">
+        <h2 class="font-heading text-3xl md:text-4xl text-deep font-bold mb-6">Midden in de natuur</h2>
+        <p class="text-deep/70 text-lg mb-4">De Uitkomst ligt aan de achterzijde aansluitend aan een natuurgebied. Het dorp Vortum-Mullem heeft een unieke ligging aan de rand van het UNESCO-gekoesterde Maasheggen gebied en langs het Pieterpad.</p>
+        <p class="text-deep/70 text-lg mb-6">In de kantine of op het terras kunt u genieten van een heerlijk ijsje, kopje koffie, thee of een frisdrankje. Ook hebben wij huisgerookte forel en zalmforel en diverse hapjes.</p>
+        <div class="flex flex-wrap gap-3">
+          <span class="bg-surface text-primary px-4 py-2 rounded-full text-sm font-medium">UNESCO Maasheggen</span>
+          <span class="bg-surface text-primary px-4 py-2 rounded-full text-sm font-medium">Pieterpad</span>
+          <span class="bg-surface text-primary px-4 py-2 rounded-full text-sm font-medium">Terras & Kantine</span>
+          <span class="bg-surface text-primary px-4 py-2 rounded-full text-sm font-medium">BBQ op afspraak</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews / Social Proof -->
+<section class="py-20 aurora-subtle">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class="text-center mb-16 scroll-reveal">
+      <h2 class="font-heading text-3xl md:text-4xl text-deep font-bold mb-2">Wat onze bezoekers zeggen</h2>
+      <p class="text-deep/60">⭐ 4.5 / 5 op Google — 102 beoordelingen</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white rounded-2xl p-8 shadow-sm scroll-reveal card-glow transition-all duration-300 cursor-default">
+        <div class="flex items-center gap-1 mb-4 text-accent">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="text-deep/70 mb-4 italic">"Behulpzame eigenaar, heerlijk gevist. Een hele fijne dag gehad."</p>
+        <p class="font-semibold text-deep">John Heijmans</p>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow-sm scroll-reveal card-glow transition-all duration-300 cursor-default">
+        <div class="flex items-center gap-1 mb-4 text-accent">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="text-deep/70 mb-4 italic">"Een hele fijne relaxte visdag gehad in een mooie rustige omgeving. Fijne vriendelijke eigenaar."</p>
+        <p class="font-semibold text-deep">Peter van Deursen</p>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow-sm scroll-reveal card-glow transition-all duration-300 cursor-default">
+        <div class="flex items-center gap-1 mb-4 text-accent">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="text-deep/70 mb-4 italic">"Kleinschalig, gezellige forelvijvers met prima horeca."</p>
+        <p class="font-semibold text-deep">Joris Kersten</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Galerij Preview -->
+<section class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class="text-center mb-12 scroll-reveal">
+      <h2 class="font-heading text-3xl md:text-4xl text-deep font-bold mb-4">Sfeerimpressie</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="scroll-reveal col-span-2 row-span-2">
+        <img src="images/forelvijver.jpg" alt="Forelvijver De Uitkomst" class="w-full h-full object-cover rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy">
+      </div>
+      <div class="scroll-reveal">
+        <img src="images/vangst-1.jpg" alt="Mooie vangst bij De Uitkomst" class="w-full h-48 object-cover rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy">
+      </div>
+      <div class="scroll-reveal">
+        <img src="images/forel-close.jpg" alt="Verse forel" class="w-full h-48 object-cover rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy">
+      </div>
+      <div class="scroll-reveal">
+        <img src="images/vangst-3.jpg" alt="Visser met vangst" class="w-full h-48 object-cover rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy">
+      </div>
+      <div class="scroll-reveal">
+        <img src="images/mixvijver-2.jpg" alt="Mixvijver" class="w-full h-48 object-cover rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy">
+      </div>
+    </div>
+    <div class="text-center mt-10 scroll-reveal">
+      <a href="galerij.html" class="aurora-bg text-white px-8 py-3 rounded-full font-bold hover:opacity-90 transition-opacity cursor-pointer inline-flex items-center gap-2 min-h-[44px]">
+        Bekijk alle foto's
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Openingstijden + Locatie -->
+<section class="py-20 aurora-subtle">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class="grid md:grid-cols-2 gap-12">
+      <div class="scroll-reveal">
+        <h2 class="font-heading text-3xl md:text-4xl text-deep font-bold mb-8">Openingstijden</h2>
+        <div class="space-y-4">
+          <div class="bg-white rounded-xl p-5 flex justify-between items-center">
+            <span class="font-semibold text-deep">Jan / Feb / Mrt</span>
+            <span class="text-red-500 font-medium">Gesloten</span>
+          </div>
+          <div class="bg-white rounded-xl p-5 flex justify-between items-center">
+            <span class="font-semibold text-deep">April</span>
+            <span class="text-primary font-medium">Wo t/m Zo — 8:30-17:00</span>
+          </div>
+          <div class="bg-white rounded-xl p-5 flex justify-between items-center">
+            <span class="font-semibold text-deep">Mei / Juni</span>
+            <span class="text-primary font-medium">Wo t/m Zo — 8:30-17:00</span>
+          </div>
+          <div class="bg-white rounded-xl p-5 flex justify-between items-center">
+            <span class="font-semibold text-deep">Juli / Augustus</span>
+            <span class="text-primary font-medium">Di t/m Zo — 8:30-21:15</span>
+          </div>
+          <div class="bg-white rounded-xl p-5 flex justify-between items-center">
+            <span class="font-semibold text-deep">Sep / Okt / Nov</span>
+            <span class="text-primary font-medium">Wo t/m Zo — 8:30-17:00</span>
+          </div>
+          <div class="bg-white rounded-xl p-5 flex justify-between items-center">
+            <span class="font-semibold text-deep">December</span>
+            <span class="text-red-500 font-medium">Gesloten</span>
+          </div>
+        </div>
+        <p class="text-deep/60 text-sm mt-4">Tijdsblokken: 8:30-12:30 | 13:00-17:00 | 17:15-21:15 (alleen juli/aug)</p>
+      </div>
+      <div class="scroll-reveal">
+        <h2 class="font-heading text-3xl md:text-4xl text-deep font-bold mb-8">Locatie</h2>
+        <div class="bg-white rounded-2xl p-6 mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <svg class="w-6 h-6 text-primary flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <div>
+              <p class="font-semibold text-deep">Sint Cornelisstraat 5</p>
+              <p class="text-deep/70">5827 AJ Vortum-Mullem</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 mb-4">
+            <svg class="w-6 h-6 text-primary flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <div>
+              <a href="tel:0614429188" class="font-semibold text-primary hover:underline cursor-pointer">06 14429188</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <svg class="w-6 h-6 text-primary flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            <a href="https://www.facebook.com/people/De-Uitkomst-forel-visvijvers/100057239719805/" target="_blank" rel="noopener" class="font-semibold text-primary hover:underline cursor-pointer">Facebook pagina</a>
+          </div>
+        </div>
+        <a href="https://maps.google.com/?q=Sint+Cornelisstraat+5+Vortum-Mullem" target="_blank" rel="noopener" class="aurora-bg text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition-opacity cursor-pointer inline-flex items-center gap-2 min-h-[44px]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+          Route plannen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="aurora-bg py-20">
+  <div class="max-w-4xl mx-auto px-4 text-center scroll-reveal">
+    <h2 class="font-heading text-3xl md:text-5xl text-white font-bold mb-6">Klaar om te vissen?</h2>
+    <p class="text-white/80 text-lg mb-10 max-w-2xl mx-auto">Al vanaf €6,50 per tijdsblok kunt u 8 uur lang genieten van heerlijk vissen. Dat is pas een uitkomst!</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="prijzen.html" class="bg-white text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-white/90 transition-colors cursor-pointer min-h-[44px] inline-flex items-center justify-center">Bekijk alle prijzen</a>
+      <a href="tel:0614429188" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-colors cursor-pointer min-h-[44px] inline-flex items-center justify-center">Bel 06 14429188</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-deep text-white/80 py-16">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class="grid md:grid-cols-3 gap-12">
+      <div>
+        <h3 class="font-heading text-xl text-white font-bold mb-4">🎣 De Uitkomst</h3>
+        <p class="text-white/60 mb-4">Recreatieve forelvisvijvers in het UNESCO Maasheggen gebied. Voor het hele gezin.</p>
+        <a href="https://www.facebook.com/people/De-Uitkomst-forel-visvijvers/100057239719805/" target="_blank" rel="noopener" class="text-accent hover:text-accent/80 transition-colors cursor-pointer">Facebook →</a>
+      </div>
+      <div>
+        <h3 class="font-heading text-xl text-white font-bold mb-4">Pagina's</h3>
+        <ul class="space-y-2">
+          <li><a href="vijvers.html" class="hover:text-white transition-colors cursor-pointer">Onze vijvers</a></li>
+          <li><a href="prijzen.html" class="hover:text-white transition-colors cursor-pointer">Prijzen</a></li>
+          <li><a href="galerij.html" class="hover:text-white transition-colors cursor-pointer">Galerij</a></li>
+          <li><a href="contact.html" class="hover:text-white transition-colors cursor-pointer">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-heading text-xl text-white font-bold mb-4">Contact</h3>
+        <ul class="space-y-2">
+          <li>Sint Cornelisstraat 5</li>
+          <li>5827 AJ Vortum-Mullem</li>
+          <li><a href="tel:0614429188" class="hover:text-white transition-colors cursor-pointer">06 14429188</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8 text-center text-white/40 text-sm">
+      <p>© 2026 De Uitkomst Visvijvers. Gebouwd door <a href="https://www.code-lieshout.nl" class="text-accent hover:text-accent/80 transition-colors cursor-pointer" target="_blank" rel="noopener">Code Lieshout</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightboxImg" src="" alt="Vergroot">
+  <button class="absolute top-6 right-6 text-white text-4xl cursor-pointer min-h-[44px] min-w-[44px]" aria-label="Sluiten">&times;</button>
+</div>
+
+<script>
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 50 ? 'rgba(19,78,74,0.95)' : 'transparent';
+    navbar.style.backdropFilter = window.scrollY > 50 ? 'blur(10px)' : 'none';
+  });
+
+  // Mobile menu
+  document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+  document.getElementById('closeMenu').addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
+  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open')));
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+  // Lightbox
+  document.querySelectorAll('.gallery-img').forEach(img => {
+    img.addEventListener('click', () => {
+      document.getElementById('lightboxImg').src = img.src;
+      document.getElementById('lightbox').classList.add('active');
+    });
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('active'); });
+</script>
+
+</body>
+</html>

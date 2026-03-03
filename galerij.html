@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galerij — De Uitkomst Visvijvers</title>
+  <meta name="description" content="Foto's van onze visvijvers, vangsten en de prachtige natuur rondom De Uitkomst in Vortum-Mullem.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&family=Varela+Round&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { primary: '#0E7490', secondary: '#065F46', accent: '#F59E0B', surface: '#F0FDFA', deep: '#134E4A', water: '#0284C7', mist: '#ECFDF5' },
+        fontFamily: { heading: ['Varela Round','sans-serif'], body: ['Nunito Sans','sans-serif'] },
+        animation: { 'aurora': 'aurora 10s ease-in-out infinite' },
+        keyframes: { aurora: { '0%,100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } } },
+      }}
+    }
+  </script>
+  <style>
+    body { font-family: 'Nunito Sans', sans-serif; color: #134E4A; background: #F0FDFA; }
+    h1,h2,h3 { font-family: 'Varela Round', sans-serif; }
+    .aurora-bg { background: linear-gradient(-45deg,#0E7490,#065F46,#0284C7,#0E7490,#065F46); background-size:300% 300%; animation:aurora 10s ease-in-out infinite; }
+    .mobile-menu { transform:translateX(100%); transition:transform 0.3s ease-in-out; }
+    .mobile-menu.open { transform:translateX(0); }
+    .scroll-reveal { opacity:0; transform:translateY(30px); transition:all 0.6s ease-out; }
+    .scroll-reveal.visible { opacity:1; transform:translateY(0); }
+    .lightbox { display:none; position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.92); align-items:center; justify-content:center; }
+    .lightbox.active { display:flex; }
+    .lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; border-radius:0.5rem; }
+    @media(prefers-reduced-motion:reduce){ .aurora-bg{animation:none!important;} }
+  </style>
+</head>
+<body>
+
+<nav class="fixed top-0 w-full z-50 bg-deep/95 backdrop-blur-sm">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <a href="index.html" class="font-heading text-2xl font-bold text-white">🎣 De Uitkomst</a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="index.html" class="text-white/90 hover:text-accent transition-colors duration-200 font-medium cursor-pointer">Home</a>
+      <a href="vijvers.html" class="text-white/90 hover:text-accent transition-colors duration-200 font-medium cursor-pointer">Vijvers</a>
+      <a href="prijzen.html" class="text-white/90 hover:text-accent transition-colors duration-200 font-medium cursor-pointer">Prijzen</a>
+      <a href="galerij.html" class="text-accent font-bold cursor-pointer">Galerij</a>
+      <a href="contact.html" class="text-white/90 hover:text-accent transition-colors duration-200 font-medium cursor-pointer">Contact</a>
+      <a href="tel:0614429188" class="aurora-bg text-white px-5 py-2.5 rounded-full font-semibold hover:opacity-90 transition-opacity cursor-pointer min-h-[44px] flex items-center">Bel ons</a>
+    </div>
+    <button id="menuBtn" class="md:hidden text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer" aria-label="Menu">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+<div id="mobileMenu" class="mobile-menu fixed inset-0 z-50 aurora-bg">
+  <div class="flex justify-end p-6"><button id="closeMenu" class="text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer" aria-label="Sluiten"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+  <div class="flex flex-col items-center gap-8 mt-16">
+    <a href="index.html" class="text-white text-2xl font-heading cursor-pointer">Home</a>
+    <a href="vijvers.html" class="text-white text-2xl font-heading cursor-pointer">Vijvers</a>
+    <a href="prijzen.html" class="text-white text-2xl font-heading cursor-pointer">Prijzen</a>
+    <a href="galerij.html" class="text-accent text-2xl font-heading cursor-pointer">Galerij</a>
+    <a href="contact.html" class="text-white text-2xl font-heading cursor-pointer">Contact</a>
+  </div>
+</div>
+
+<section class="aurora-bg pt-32 pb-20">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h1 class="font-heading text-4xl md:text-5xl text-white font-bold mb-4">Galerij</h1>
+    <p class="text-white/80 text-lg">Sfeerbeelden van onze vijvers, vangsten en de omgeving. Klik op een foto om te vergroten.</p>
+  </div>
+</section>
+
+<section class="py-20">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+      <div class="scroll-reveal break-inside-avoid"><img src="images/forelvijver.jpg" alt="Forelvijver" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/vangst-1.jpg" alt="Mooie vangst" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/de-uitkomst-1.jpg" alt="De Uitkomst overzicht" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/forel-close.jpg" alt="Verse forel" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/mixvijver-2.jpg" alt="Mixvijver" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/vangst-2.jpg" alt="Trots op de vangst" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/forelvijver-2.jpg" alt="Forelvijver 2" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/vangst-3.jpg" alt="Visser met vangst" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/karper.jpg" alt="Karper" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/de-uitkomst.jpg" alt="De Uitkomst" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/vijver-overview.jpg" alt="Vijver overzicht" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/group-photo.jpg" alt="Groep bij De Uitkomst" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/vangst-4.jpg" alt="Vangst" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/forel-in-voorraad.jpg" alt="Forel in voorraad" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/visser.jpg" alt="Visser aan het water" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/google/google_place_1.jpg" alt="Google foto 1" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/google/google_place_2.jpg" alt="Google foto 2" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+      <div class="scroll-reveal break-inside-avoid"><img src="images/google/google_place_3.jpg" alt="Google foto 3" class="w-full rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform duration-300 gallery-img" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="aurora-bg py-16">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="font-heading text-3xl text-white font-bold mb-4">Zin gekregen?</h2>
+    <a href="prijzen.html" class="bg-white text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-white/90 transition-colors cursor-pointer min-h-[44px] inline-flex items-center justify-center mt-4">Bekijk prijzen</a>
+  </div>
+</section>
+
+<footer class="bg-deep text-white/80 py-16">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class="grid md:grid-cols-3 gap-12">
+      <div><h3 class="font-heading text-xl text-white font-bold mb-4">🎣 De Uitkomst</h3><p class="text-white/60">Recreatieve forelvisvijvers in het UNESCO Maasheggen gebied.</p></div>
+      <div><h3 class="font-heading text-xl text-white font-bold mb-4">Pagina's</h3><ul class="space-y-2"><li><a href="vijvers.html" class="hover:text-white transition-colors cursor-pointer">Onze vijvers</a></li><li><a href="prijzen.html" class="hover:text-white transition-colors cursor-pointer">Prijzen</a></li><li><a href="galerij.html" class="hover:text-white transition-colors cursor-pointer">Galerij</a></li><li><a href="contact.html" class="hover:text-white transition-colors cursor-pointer">Contact</a></li></ul></div>
+      <div><h3 class="font-heading text-xl text-white font-bold mb-4">Contact</h3><ul class="space-y-2"><li>Sint Cornelisstraat 5</li><li>5827 AJ Vortum-Mullem</li><li><a href="tel:0614429188" class="hover:text-white transition-colors cursor-pointer">06 14429188</a></li></ul></div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8 text-center text-white/40 text-sm">© 2026 De Uitkomst Visvijvers. Gebouwd door <a href="https://www.code-lieshout.nl" class="text-accent hover:text-accent/80 cursor-pointer" target="_blank" rel="noopener">Code Lieshout</a></div>
+  </div>
+</footer>
+
+<div id="lightbox" class="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightboxImg" src="" alt="Vergroot">
+  <button class="absolute top-6 right-6 text-white text-4xl cursor-pointer min-h-[44px] min-w-[44px]" aria-label="Sluiten">&times;</button>
+</div>
+
+<script>
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('mobileMenu').classList.add('open'));
+document.getElementById('closeMenu').addEventListener('click',()=>document.getElementById('mobileMenu').classList.remove('open'));
+document.querySelectorAll('#mobileMenu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mobileMenu').classList.remove('open')));
+const observer=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');observer.unobserve(el.target)}}),{threshold:0.1});
+document.querySelectorAll('.scroll-reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('.gallery-img').forEach(img=>{img.addEventListener('click',()=>{document.getElementById('lightboxImg').src=img.src;document.getElementById('lightbox').classList.add('active')})});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('lightbox').classList.remove('active')});
+</script>
+</body>
+</html>
